@@ -1,0 +1,39 @@
+name: My First CICD Deploy Application
+
+on:
+    push:
+        branches:
+            -master
+
+jobs:
+    build-deploy:
+        runs-on: windows-2025
+
+        steps:
+            # checkout the repository
+            - name: Checkout code
+              uses: actions/checkout@v3
+
+
+            # Set up node js
+            - name: Setup Node.js
+              uses: actions/setup-node@v3
+              with:
+                node-version: 22
+
+
+            # Install Dependancies
+            - name: Install Dependancies
+              uses: npm install
+             
+            # Build Project
+            - name: Build Project
+              uses: npm run build
+
+            # Deploy Project
+            - name: Deploy Project
+              uses: peaceiris/actions-gh-pages@v3
+              with:
+                github_token: ${{secrets.GITHUB_TOKEN}}
+                publish_dir: dist
+             
