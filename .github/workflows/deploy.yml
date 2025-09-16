@@ -1,6 +1,7 @@
 name: My First CICD Deploy Application
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - master
